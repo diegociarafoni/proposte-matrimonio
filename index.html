@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Diego &amp; Rosalba · Proposte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F4EF;--card:#FFFFFF;--ink:#2F3329;--muted:#6B6F63;--line:#E2DED4;--accent:#A97C25;--salvia:#6F865C;--thumb:#ECE9E1;--errore:#A4493D}
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Jost,system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:40px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px))}
+h1{font:500 clamp(34px,6vw,54px)/1.05 "Cormorant Garamond",serif;margin:0 0 10px}
+[hidden]{display:none!important}
+
+/* Accesso */
+#accesso{min-height:100dvh;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px))}
+.porta{width:min(420px,100%);background:var(--card);border:1px solid var(--line);padding:40px 28px;text-align:center;position:relative}
+.porta::before{content:"";position:absolute;inset:8px;border:1px solid #C6A35A;pointer-events:none}
+.porta h1{font-size:40px}
+.porta p{color:var(--muted);margin:0 0 22px}
+.porta label{display:block;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.porta input{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);text-align:center}
+.porta input:focus-visible,.btn:focus-visible,.card:focus-visible,.indietro:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn{margin-top:14px;width:100%;font:500 15px Jost,sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:13px;border:0;border-radius:10px;background:var(--salvia);color:#fff;cursor:pointer}
+.btn[disabled]{opacity:.6;cursor:wait}
+.msg{min-height:24px;margin-top:12px;font-size:14px;color:var(--errore)}
+
+/* Scelta */
+.intro{color:var(--muted);margin:0;max-width:62ch}
+section{margin-top:44px}
+section header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:16px}
+h2{font:italic 500 28px/1.1 "Cormorant Garamond",serif;margin:0}
+section header p{margin:0;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;text-align:left;font:inherit;padding:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;color:inherit;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
+.thumb{width:100%;aspect-ratio:3/4;overflow:hidden;background:var(--thumb);border-bottom:1px solid var(--line)}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.txt{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+h3{margin:0;font:500 17px/1.25 Jost,sans-serif}
+.txt p{margin:0;color:var(--muted);font-size:14px;flex:1}
+.go{color:var(--accent);font-size:13px;font-weight:500;margin-top:6px}
+.esci{margin-top:48px;background:none;border:0;color:var(--muted);font:inherit;font-size:14px;text-decoration:underline;cursor:pointer}
+@media (max-width:520px){.grid{grid-template-columns:1fr 1fr;gap:10px}.txt{padding:10px}.txt p{font-size:13px}h3{font-size:15px}}
+
+/* Visore */
+#visore{position:fixed;inset:0;z-index:20;background:#fff}
+#visore iframe{border:0;width:100%;height:100%;display:block}
+.indietro{position:fixed;z-index:21;left:max(12px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));font:500 14px Jost,sans-serif;padding:10px 16px;border-radius:999px;border:0;background:rgba(47,51,41,.88);color:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.caricamento{position:fixed;inset:0;z-index:19;display:grid;place-items:center;background:rgba(246,244,239,.85);font-size:15px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<main id="accesso">
+  <form class="porta" id="form">
+    <h1>Diego &amp; Rosalba</h1>
+    <p>Le proposte per il sito del matrimonio.</p>
+    <label for="parola">Parola d'ordine</label>
+    <input id="parola" type="password" autocomplete="current-password" required autofocus>
+    <button class="btn" id="entra">Entra</button>
+    <div class="msg" id="msg" role="alert"></div>
+  </form>
+</main>
+
+<div class="wrap" id="scelta" hidden>
+  <h1>Proposte</h1>
+  <p class="intro" id="intro"></p>
+  <div id="temi"></div>
+  <button class="esci" id="esci">Esci</button>
+</div>
+
+<div class="caricamento" id="caricamento" hidden>Apertura della proposta…</div>
+<div id="visore" hidden><iframe id="frame" title="Proposta" allow="clipboard-write"></iframe></div>
+<button class="indietro" id="indietro" hidden>← Tutte le proposte</button>
+
+<script>
+(function(){
+  var SALT="bAyAs+ki4kZ/GkPM8NIdSA==",ITER=250000,K="proposte-chiave",chiave=null,dati=null;
+  var $=function(id){return document.getElementById(id)};
+  function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
+  function salva(raw){try{sessionStorage.setItem(K,btoa(String.fromCharCode.apply(null,new Uint8Array(raw))))}catch(e){}}
+  function importa(raw){return crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"])}
+  function deriva(parola){
+    return crypto.subtle.importKey("raw",new TextEncoder().encode(parola),"PBKDF2",false,["deriveBits"])
+      .then(function(base){return crypto.subtle.deriveBits({name:"PBKDF2",salt:b64(SALT),iterations:ITER,hash:"SHA-256"},base,256)});
+  }
+  function apri(file){
+    return fetch(file,{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error("rete");return r.arrayBuffer()})
+      .then(function(buf){var b=new Uint8Array(buf);return crypto.subtle.decrypt({name:"AES-GCM",iv:b.slice(0,12)},chiave,b.slice(12))})
+      .then(function(p){return new TextDecoder().decode(p)});
+  }
+  function mostraScelta(){
+    $("accesso").hidden=true;$("scelta").hidden=false;
+    var n=0,h="";
+    dati.forEach(function(t){
+      h+='<section><header><h2>'+t.titolo+'</h2><p>'+t.desc+'</p></header><div class="grid">';
+      t.items.forEach(function(v){n++;
+        h+='<button class="card" data-slug="'+v.slug+'" data-nome="'+v.nome+'"><div class="thumb"><img alt="Anteprima '+v.nome+'" src="'+v.img+'"></div><div class="txt"><h3>'+v.nome+'</h3><p>'+v.desc+'</p><span class="go">Apri la proposta →</span></div></button>';
+      });
+      h+='</div></section>';
+    });
+    $("temi").innerHTML=h;
+    $("intro").textContent=n+" proposte, raggruppate per tema, con gli stessi contenuti. Toccatene una per aprirla con l'animazione completa; il pulsante in basso riporta qui.";
+    if(location.hash.length>1)visualizza(location.hash.slice(1),false);
+  }
+  function entra(raw){
+    return importa(raw).then(function(k){chiave=k;return apri("indice.bin")})
+      .then(function(t){dati=JSON.parse(t);salva(raw);mostraScelta()});
+  }
+  function visualizza(slug,push){
+    $("caricamento").hidden=false;
+    apri("p/"+slug+".bin").then(function(html){
+      $("frame").srcdoc=html;$("visore").hidden=false;$("indietro").hidden=false;
+      document.title="Diego & Rosalba · "+((dati.flatMap?dati.flatMap(function(t){return t.items}):[]).filter(function(v){return v.slug===slug}).map(function(v){return v.nome})[0]||"Proposta");
+      if(push)history.pushState({slug:slug},"","#"+slug);
+    }).catch(function(){alert("Non riesco ad aprire la proposta. Riprovate tra poco.")})
+      .then(function(){$("caricamento").hidden=true});
+  }
+  function chiudi(){$("visore").hidden=true;$("indietro").hidden=true;$("frame").srcdoc="";document.title="Diego & Rosalba · Proposte"}
+
+  $("form").addEventListener("submit",function(e){
+    e.preventDefault();var btn=$("entra");btn.disabled=true;$("msg").textContent="";
+    deriva($("parola").value).then(entra).catch(function(){
+      $("msg").textContent="Parola d'ordine non corretta.";$("parola").select();
+    }).then(function(){btn.disabled=false});
+  });
+  $("temi").addEventListener("click",function(e){var c=e.target.closest(".card");if(c)visualizza(c.dataset.slug,true)});
+  $("indietro").addEventListener("click",function(){if(history.state&&history.state.slug)history.back();else{chiudi();history.replaceState(null,"",location.pathname)}});
+  window.addEventListener("popstate",function(){if(location.hash.length>1&&dati)visualizza(location.hash.slice(1),false);else chiudi()});
+  $("esci").addEventListener("click",function(){try{sessionStorage.removeItem(K)}catch(e){}location.replace(location.pathname)});
+
+  if(!window.crypto||!crypto.subtle){$("msg").textContent="Aprite questa pagina dall'indirizzo https:// con un browser aggiornato.";return}
+  var s=null;try{s=sessionStorage.getItem(K)}catch(e){}
+  if(s)entra(b64(s)).catch(function(){try{sessionStorage.removeItem(K)}catch(e){}});
+})();
+</script>
+</body>
+</html>
