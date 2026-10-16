@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Diego &amp; Rosalba · Proposte</title>
+<title>Rosalba &amp; Diego · Proposte</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -58,7 +58,7 @@ h3{margin:0;font:500 17px/1.25 Jost,sans-serif}
 <body>
 <main id="accesso">
   <form class="porta" id="form">
-    <h1>Diego &amp; Rosalba</h1>
+    <h1>Rosalba &amp; Diego</h1>
     <p>Le proposte per il sito del matrimonio.</p>
     <label for="parola">Parola d'ordine</label>
     <input id="parola" type="password" autocomplete="current-password" required autofocus>
@@ -80,7 +80,7 @@ h3{margin:0;font:500 17px/1.25 Jost,sans-serif}
 
 <script>
 (function(){
-  var SALT="OR+u6+Z2t7S/d3/DVfkcow==",ITER=250000,K="proposte-chiave",chiave=null,dati=null;
+  var SALT="3knC+TN735iw/qoBDGaDdg==",ITER=250000,K="proposte-chiave",chiave=null,dati=null;
   var $=function(id){return document.getElementById(id)};
   function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
   function salva(raw){try{sessionStorage.setItem(K,btoa(String.fromCharCode.apply(null,new Uint8Array(raw))))}catch(e){}}
@@ -116,12 +116,12 @@ h3{margin:0;font:500 17px/1.25 Jost,sans-serif}
     $("caricamento").hidden=false;
     apri("p/"+slug+".bin").then(function(html){
       $("frame").srcdoc=html;$("visore").hidden=false;$("indietro").hidden=false;
-      document.title="Diego & Rosalba · "+((dati.flatMap?dati.flatMap(function(t){return t.items}):[]).filter(function(v){return v.slug===slug}).map(function(v){return v.nome})[0]||"Proposta");
+      document.title="Rosalba & Diego · "+((dati.flatMap?dati.flatMap(function(t){return t.items}):[]).filter(function(v){return v.slug===slug}).map(function(v){return v.nome})[0]||"Proposta");
       if(push)history.pushState({slug:slug},"","#"+slug);
     }).catch(function(){alert("Non riesco ad aprire la proposta. Riprovate tra poco.")})
       .then(function(){$("caricamento").hidden=true});
   }
-  function chiudi(){$("visore").hidden=true;$("indietro").hidden=true;$("frame").srcdoc="";document.title="Diego & Rosalba · Proposte"}
+  function chiudi(){$("visore").hidden=true;$("indietro").hidden=true;$("frame").srcdoc="";document.title="Rosalba & Diego · Proposte"}
 
   $("form").addEventListener("submit",function(e){
     e.preventDefault();var btn=$("entra");btn.disabled=true;$("msg").textContent="";
