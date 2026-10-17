@@ -80,7 +80,7 @@ h3{margin:0;font:500 17px/1.25 Jost,sans-serif}
 
 <script>
 (function(){
-  var SALT="4/ZSi8LaXH4GpfideoHM/g==",ITER=250000,K="proposte-chiave",chiave=null,dati=null;
+  var SALT="5sQdNfc1A2cHErC3B0tH/g==",ITER=250000,K="proposte-chiave",chiave=null,dati=null;
   var $=function(id){return document.getElementById(id)};
   function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
   function salva(raw){try{sessionStorage.setItem(K,btoa(String.fromCharCode.apply(null,new Uint8Array(raw))))}catch(e){}}
@@ -115,11 +115,13 @@ h3{margin:0;font:500 17px/1.25 Jost,sans-serif}
   function visualizza(slug,push){
     $("caricamento").hidden=false;
     apri("p/"+slug+".bin").then(function(html){
-      $("frame").srcdoc=html;$("visore").hidden=false;$("indietro").hidden=false;
-      document.title="Rosalba & Diego · "+((dati.flatMap?dati.flatMap(function(t){return t.items}):[]).filter(function(v){return v.slug===slug}).map(function(v){return v.nome})[0]||"Proposta");
+      // La proposta sostituisce questa pagina, come un sito vero: su iPhone le animazioni dentro un iframe non partono bene.
       if(push)history.pushState({slug:slug},"","#"+slug);
+      var torna='<a href="'+location.pathname+'" style="position:fixed;z-index:2147483647;left:max(12px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));font:500 14px Jost,system-ui,sans-serif;padding:10px 16px;border-radius:999px;background:rgba(47,51,41,.88);color:#fff;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.2)">← Tutte le proposte</a><script>addEventListener("popstate",function(){location.reload()})<\/script>';
+      html=/<\/body>/i.test(html)?html.replace(/<\/body>/i,torna+"</body>"):html+torna;
+      document.open();document.write(html);document.close();
     }).catch(function(){alert("Non riesco ad aprire la proposta. Riprovate tra poco.")})
-      .then(function(){$("caricamento").hidden=true});
+      .then(function(){var c=$("caricamento");if(c)c.hidden=true});
   }
   function chiudi(){$("visore").hidden=true;$("indietro").hidden=true;$("frame").srcdoc="";document.title="Rosalba & Diego · Proposte"}
 
