@@ -80,7 +80,7 @@ h3{margin:0;font:500 17px/1.25 Jost,sans-serif}
 
 <script>
 (function(){
-  var SALT="hmet9a/iHFlsTtkr6heh3w==",ITER=250000,K="proposte-chiave",chiave=null,dati=null;
+  var SALT="envKPsyitGNz7T8vrEgYsQ==",ITER=250000,K="proposte-chiave",chiave=null,dati=null;
   var $=function(id){return document.getElementById(id)};
   function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})}
   function salva(raw){try{sessionStorage.setItem(K,btoa(String.fromCharCode.apply(null,new Uint8Array(raw))))}catch(e){}}
